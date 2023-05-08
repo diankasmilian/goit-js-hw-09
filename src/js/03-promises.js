@@ -1,27 +1,40 @@
 const refs = {
   form: document.querySelector('.form'),
+  button: document.querySelector('button[type=submit]'),
 };
+
 
 refs.form.addEventListener('submit', onSubmitForm);
 
 
 function createPromise(position, delay) {
- 
+  let isActive = false;
+
   return new Promise ((resolve, reject) => {
     const shouldResolve = Math.random() > 0.3;
+    
 
-    setInterval(() => {
-      if (shouldResolve) {
-        resolve({ position, delay });
-      } else {
-        reject({ position, delay });
-      };
-    }, delay);
+    if (isActive) {
+      refs.button.removeAttribute('disabled');
+      return;
+    }
+    isActive = true;
+      refs.button.setAttribute('disabled', '');
+      setInterval(() => {
+        if (shouldResolve) {
+          resolve({ position, delay });
+        } else {
+          reject({ position, delay });
+        };
+      }, delay);
+    
+
   });
 };
 
 function onSubmitForm (e) {
 e.preventDefault();
+
 
   const delay = Number(e.target.delay.value);
   const step = Number(e.target.step.value);

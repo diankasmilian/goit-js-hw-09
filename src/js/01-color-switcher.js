@@ -6,6 +6,7 @@ const refs = {
    btnStop: document.querySelector('button[data-stop]')
 };
 
+refs.btnStop.setAttribute("disabled", "");
 let intervalId;
 let isOnColorSwitcher = false;
 
@@ -14,6 +15,7 @@ refs.btnStop.addEventListener('click', onStop);
 
 function onStart () {
    refs.btnStart.setAttribute("disabled", "");
+   refs.btnStop.removeAttribute("disabled");
    if (isOnColorSwitcher) {
       return;
    }
@@ -32,5 +34,6 @@ function getRandomHexColor() {
  function onStop () {
    clearInterval(intervalId);
    refs.btnStart.removeAttribute("disabled");
+   refs.btnStop.setAttribute("disabled", "");
    isOnColorSwitcher = false;
  }

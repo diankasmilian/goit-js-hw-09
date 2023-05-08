@@ -12,6 +12,8 @@ const refs = {
    seconds: document.querySelector('span[data-seconds]')
 };
 
+refs.btnStart.setAttribute('disabled', '');
+
 let intervalId;
 
 
@@ -36,9 +38,9 @@ flatpickr( refs.input, {
    isActive: false,
    start() { 
       const selectedDate = new Date(refs.input.value);
+      refs.btnStart.setAttribute('disabled', '');
       
       if (this.isActive) {
-         refs.input.removeAttribute('disabled');  
          return;
       }
       this.isActive = true;
@@ -84,7 +86,7 @@ flatpickr( refs.input, {
    const day = hour * 24;
  
    // Remaining days
-   const days = addLeadingZero(Math.floor(ms / day), 3);
+   const days = addLeadingZero(Math.floor(ms / day), 2);
    // Remaining hours
    const hours = addLeadingZero(Math.floor((ms % day) / hour), 2);
    // Remaining minutes
